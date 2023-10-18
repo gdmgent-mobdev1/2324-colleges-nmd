@@ -3,6 +3,7 @@ import { Pokemon } from "../modules/pokemon/types";
 import isVoid from "../utils/isVoid";
 import ErrorView from "./design/ErrorView";
 import LoadingIndicator from "./design/LoadingIndicator";
+import * as Storage from "../storage";
 
 const $detail = document.getElementById("detail");
 
@@ -21,7 +22,13 @@ const Detail = (pokemon: Pokemon) => {
     `;
 };
 
-const init = () => {};
+let id: string | null = Storage.getDetailId();
+
+const init = () => {
+  if (id) {
+    render(id);
+  }
+};
 
 const render = (id?: string | null) => {
   if (!$detail) {
@@ -32,6 +39,8 @@ const render = (id?: string | null) => {
     $detail.innerHTML = "";
     return;
   }
+
+  Storage.setDetailId(id);
 
   $detail.innerHTML = LoadingIndicator();
   fetchPokemonById(id)

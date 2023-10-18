@@ -2,7 +2,7 @@ import { ApiListResponse, ListItem } from "../../api/types";
 import { Pokemon } from "./types";
 
 export const fetchPokemon = async () => {
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+  const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/pokemon/`);
   if (response.ok) {
     const result: ApiListResponse<ListItem> = await response.json();
     return result;
@@ -11,7 +11,7 @@ export const fetchPokemon = async () => {
 };
 
 export const fetchPokemonById = async (id: string) => {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/pokemon/${id}`);
   if (response.ok) {
     const result: Pokemon = await response.json();
     return result;
