@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="/">Pokédex</a>
+    </div>
+  </header>
+  <div class="container">
+    <main class="main-grid">
+      <section class="list">
+        <h2 class="h2">Pokémon</h2>
+        <div id="list-container">
+          <div class="settings">
+            <label for="limit">Limit</label>
+            <input type="number" id="input-settings-limit" value="${data.limit}" />
+            <button id="btn-apply-settings">Apply</button>
+          </div>
+          <ul id="list">
+
+          </ul>
+          <div class="pagination">
+            <button id="btn-pagination-prev">↞</button>
+            <span id="pagination-page"></span>
+            <button id="btn-pagination-next">↠</button>
+          </div>
+        </div>
+      </section>
+      <section class="detail" id="detail">
+
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
