@@ -3,8 +3,8 @@ import * as Detail from "./Detail";
 import { fetchPokemon } from "../modules/pokemon/api";
 import getIdFromUrl from "../utils/getIdFromUrl";
 import isVoid from "../utils/isVoid";
-import ErrorView from "./design/ErrorView";
-import LoadingIndicator from "./design/LoadingIndicator";
+import getErrorView from "./design/ErrorView";
+import getLoadingIndicator from "./design/LoadingIndicator";
 import * as Storage from "../storage";
 
 const $list = document.getElementById("list");
@@ -82,7 +82,7 @@ const render = async () => {
   }
 
   if (isVoid(data)) {
-    $list.innerHTML = LoadingIndicator();
+    $list.innerHTML = getLoadingIndicator();
   }
 
   fetchPokemon(pagination)
@@ -95,7 +95,7 @@ const render = async () => {
     })
     .catch((error) => {
       data = null;
-      $list.innerHTML = ErrorView(String(error));
+      $list.innerHTML = getErrorView(String(error));
     });
 };
 

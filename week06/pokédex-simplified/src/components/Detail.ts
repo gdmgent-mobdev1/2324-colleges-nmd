@@ -1,8 +1,8 @@
 import { fetchPokemonById } from "../modules/pokemon/api";
 import { Pokemon, SpriteSet } from "../modules/pokemon/types";
 import isVoid from "../utils/isVoid";
-import ErrorView from "./design/ErrorView";
-import LoadingIndicator from "./design/LoadingIndicator";
+import getErrorView from "./design/ErrorView";
+import getLoadingIndicator from "./design/LoadingIndicator";
 import * as Storage from "../storage";
 
 const $detail = document.getElementById("detail");
@@ -91,7 +91,7 @@ const render = (id?: string | null) => {
     return;
   }
 
-  $detail.innerHTML = LoadingIndicator();
+  $detail.innerHTML = getLoadingIndicator();
   fetchPokemonById(id)
     .then((data) => {
       if (!isVoid(data)) {
@@ -100,7 +100,7 @@ const render = (id?: string | null) => {
       }
     })
     .catch((error) => {
-      $detail.innerHTML = ErrorView(String(error));
+      $detail.innerHTML = getErrorView(String(error));
     });
 };
 
