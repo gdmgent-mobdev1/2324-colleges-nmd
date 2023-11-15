@@ -24,8 +24,6 @@ const showUI = () => {
     $quiz?.classList.add("hidden");
     $settings?.classList.add("hidden");
     $result?.classList.remove("hidden");
-
-    // todo
   }
 };
 
