@@ -1,6 +1,5 @@
-import * as bodyParser from "body-parser";
 import compression from "compression";
-import { Express } from "express";
+import express, { Express } from "express";
 import helmet from "helmet";
 import cors from "cors";
 
@@ -8,9 +7,8 @@ const registerMiddleware = (app: Express) => {
   // cors
   app.use(cors());
 
-  // body parser
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  // json
+  app.use(express.json());
 
   // helmet
   app.use(helmet.noSniff());

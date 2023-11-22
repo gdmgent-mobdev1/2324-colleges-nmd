@@ -1,8 +1,8 @@
 import { Express } from "express";
-import { getClients } from "../modules/Client/Client.controller";
+import clientRoutes from "../modules/Client/Client.routes";
 
 const registerRoutes = (app: Express) => {
-  app.get("/clients", getClients);
+  app.use("/", clientRoutes);
 };
 
 export { registerRoutes };

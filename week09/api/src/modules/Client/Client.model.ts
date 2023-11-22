@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schema = new mongoose.Schema(
+const clientSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -26,6 +26,6 @@ const schema = new mongoose.Schema(
   }
 );
 
-const Client = mongoose.model("Client", schema);
+const Client = mongoose.model("Client", clientSchema);
 
 export default Client;
