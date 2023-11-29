@@ -1,5 +1,5 @@
 import { NextFunction } from "express";
-import mongoose from "mongoose";
+import mongoose, { PreSaveMiddlewareFunction } from "mongoose";
 import validateModel from "../../validation/validateModel";
 import isValidEmail from "../../validation/isValidEmail";
 
@@ -33,10 +33,10 @@ const clientSchema = new mongoose.Schema(
   }
 );
 
-/*clientSchema.pre("save", function (next: NextFunction) {
+clientSchema.pre("save", function (next) {
   validateModel(this);
   next();
-});*/
+});
 
 const Client = mongoose.model("Client", clientSchema);
 
