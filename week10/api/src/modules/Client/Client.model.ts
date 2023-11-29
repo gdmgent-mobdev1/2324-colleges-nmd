@@ -1,5 +1,4 @@
-import { NextFunction } from "express";
-import mongoose, { PreSaveMiddlewareFunction } from "mongoose";
+import mongoose from "mongoose";
 import validateModel from "../../validation/validateModel";
 import isValidEmail from "../../validation/isValidEmail";
 
