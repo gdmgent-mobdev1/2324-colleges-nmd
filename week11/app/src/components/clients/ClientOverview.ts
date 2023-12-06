@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { getClients } from "@core/modules/clients/api";
-import { Client } from "@core/modules/clients/types";
+import { getClients } from "@core/modules/clients/Client.api";
+import { Client } from "@core/modules/clients/Client.types";
 
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";

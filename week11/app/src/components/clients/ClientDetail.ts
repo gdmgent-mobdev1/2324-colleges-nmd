@@ -1,19 +1,22 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { getClients } from "@core/modules/clients/api";
-import { Client } from "@core/modules/clients/types";
+import { getClientById } from "@core/modules/clients/Client.api";
+import { Client } from "@core/modules/clients/Client.types";
+import { router } from "@core/router";
 
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
 
-@customElement("client-overview")
-class ClientOverview extends LitElement {
+@customElement("client-detail")
+class ClientDetail extends LitElement {
   @property()
   isLoading: boolean = false;
   @property()
-  clients: Array<Client> | null = null;
+  client: Client | null = null;
   @property()
   error: String | null = null;
+
+  @property({ type: Object }) location = router.location;
 
   // called when the element is first connected to the document’s DOM
   connectedCallback(): void {
@@ -22,11 +25,15 @@ class ClientOverview extends LitElement {
   }
 
   fetchItems() {
+    if (!this.location.params.id || typeof this.location.params.id !== "string") {
+      return;
+    }
+
     this.isLoading = true;
     // todo in api
-    getClients()
+    getClientById(this.location.params.id)
       .then(({ data }) => {
-        this.clients = data;
+        this.client = data;
         this.isLoading = false;
       })
       .catch((error) => {
@@ -36,27 +43,18 @@ class ClientOverview extends LitElement {
   }
 
   render() {
-    const { isLoading, clients, error } = this;
+    const { isLoading, client, error } = this;
 
     if (error) {
       return html`<error-view error=${error} />`;
     }
 
-    if (isLoading || !clients) {
+    if (isLoading || !client) {
       return html`<loading-indicator></loading-indicator>`;
     }
 
-    return html` <h2>Clients</h2>
-      <ul>
-        ${clients.map((c) => {
-          return html`
-            <li>
-              <a href="/clients/${c._id}">${c.name}</a>
-            </li>
-          `;
-        })}
-      </ul>`;
+    return html` <h2>${client.name}</h2>`;
   }
 }
 
-export default ClientOverview;
+export default ClientDetail;

@@ -45,13 +45,15 @@ class ClientDetail extends LitElement {
   render() {
     const { isLoading, client, error } = this;
 
-    if (isLoading) {
-      return html`<loading-indicator></loading-indicator>`;
-    } else if (error) {
+    if (error) {
       return html`<error-view error=${error} />`;
-    } else if (client) {
-      return html` <h2>${client.name}</h2>`;
     }
+
+    if (isLoading || !client) {
+      return html`<loading-indicator></loading-indicator>`;
+    }
+
+    return html` <h2>${client.name}</h2>`;
   }
 }
 

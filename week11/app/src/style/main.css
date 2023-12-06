@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap");
+
+:root {
+  --primary: #23bcb0;
+  --primary900: #103646;
+  --secondary: #9d4e94;
+  --gray: #8d8b88;
+  --gray100: #e5e5e5;
+  --background: #efeff4;
+  --red: #db3b5a;
+  --red100: #ffeaee;
+
+  --text-color: var(--primary-900);
+
+  --font-sans: "Source Sans 3", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
+}
+
+body {
+  background: var(--background);
+  font-family: var(--font-sans);
+  color: var(--text-color);
+}
