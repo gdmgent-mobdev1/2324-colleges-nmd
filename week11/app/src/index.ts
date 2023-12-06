@@ -11,17 +11,33 @@ const routes = [
     component: "my-app",
     children: [
       {
-        path: "clients",
-        component: "client-overview",
+        path: "/",
+        component: "auth-container",
         action: async () => {
-          await import("@components/clients/ClientOverview");
+          await import("@components/auth/AuthContainer");
         },
+        children: [
+          {
+            path: "clients",
+            component: "client-overview",
+            action: async () => {
+              await import("@components/clients/ClientOverview");
+            },
+          },
+          {
+            path: "clients/:id",
+            component: "client-detail",
+            action: async () => {
+              await import("@components/clients/ClientDetail");
+            },
+          },
+        ],
       },
       {
-        path: "clients/:id",
-        component: "client-detail",
+        path: "login",
+        component: "login-page",
         action: async () => {
-          await import("@components/clients/ClientDetail");
+          await import("@components/auth/Login");
         },
       },
     ],
