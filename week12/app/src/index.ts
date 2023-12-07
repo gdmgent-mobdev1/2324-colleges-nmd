@@ -18,6 +18,13 @@ const routes = [
         },
         children: [
           {
+            path: "/",
+            component: "app-home",
+            action: async () => {
+              await import("@components/pages/home/Home");
+            },
+          },
+          {
             path: "clients",
             component: "client-overview",
             action: async () => {

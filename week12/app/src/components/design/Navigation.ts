@@ -1,4 +1,4 @@
-import { logout, userContext } from "@components/auth/AuthContainer";
+import { logout } from "@components/auth/AuthContainer";
 import { User } from "@core/modules/auth/Auth.types";
 import { consume } from "@lit/context";
 import { LitElement, css, html } from "lit";
@@ -6,6 +6,7 @@ import { customElement, property } from "lit/decorators.js";
 
 import "@components/design/Logo/Logo";
 import { defaultStyles } from "@styles/styles";
+import userContext from "@components/auth/userContext";
 
 @customElement("app-navigation")
 class Navigation extends LitElement {

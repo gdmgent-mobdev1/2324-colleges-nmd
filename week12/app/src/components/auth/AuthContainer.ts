@@ -10,9 +10,8 @@ import { defaultStyles } from "@styles/styles";
 
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
-import { createContext, provide } from "@lit/context";
-
-export const userContext = createContext<User | null>("user");
+import { provide } from "@lit/context";
+import userContext from "./userContext";
 
 export const logout = () => {
   Storage.saveAuthToken(null);
