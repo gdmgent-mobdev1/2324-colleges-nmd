@@ -88,3 +88,5 @@ class AuthContainer extends LitElement {
     }
   `;
 }
+
+export default AuthContainer;
