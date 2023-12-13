@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Project } from "./Project.types";
-import { ObjectId } from "mongodb";
 import validateModel from "../../validation/validateModel";
 
 const projectSchema = new mongoose.Schema<Project>(
@@ -10,11 +9,12 @@ const projectSchema = new mongoose.Schema<Project>(
       required: true,
     },
     clientId: {
-      type: ObjectId,
+      // don't import ObjectId -> TS problems
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
     ownerId: {
-      type: ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
   },

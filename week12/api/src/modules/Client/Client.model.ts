@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import validateModel from "../../validation/validateModel";
 import isValidEmail from "../../validation/isValidEmail";
 import { Client } from "./Client.types";
-import { ObjectId } from "mongodb";
 
 const clientSchema = new mongoose.Schema<Client>(
   {
@@ -11,7 +10,7 @@ const clientSchema = new mongoose.Schema<Client>(
       required: true,
     },
     ownerId: {
-      type: ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
     contactPerson: {
