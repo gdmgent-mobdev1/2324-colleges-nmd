@@ -1,60 +1,29 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { getClientById } from "@core/modules/clients/Client.api";
-import { Client } from "@core/modules/clients/Client.types";
-import { router } from "@core/router";
-
-import "@components/design/LoadingIndicator";
-import "@components/design/ErrorView";
 import { defaultStyles } from "@styles/styles";
+import { consume } from "@lit/context";
+import { Client } from "@core/modules/clients/Client.types";
+import { clientContext } from "./ClientDetailContainer";
+
+import "@components/design/Typography/PageTitle";
 
 @customElement("client-detail")
 class ClientDetail extends LitElement {
-  @property()
-  isLoading: boolean = false;
-  @property()
-  client: Client | null = null;
-  @property()
-  error: String | null = null;
-
-  @property({ type: Object }) location = router.location;
-
-  // called when the element is first connected to the document’s DOM
-  connectedCallback(): void {
-    super.connectedCallback();
-    this.fetchItems();
-  }
-
-  fetchItems() {
-    if (!this.location.params.id || typeof this.location.params.id !== "string") {
-      return;
-    }
-
-    this.isLoading = true;
-    // todo in api
-    getClientById(this.location.params.id)
-      .then(({ data }) => {
-        this.client = data;
-        this.isLoading = false;
-      })
-      .catch((error) => {
-        this.error = error.message;
-        this.isLoading = false;
-      });
-  }
+  @consume({ context: clientContext, subscribe: true })
+  @property({ attribute: false })
+  public client?: Client | null;
 
   render() {
-    const { isLoading, client, error } = this;
+    const { client } = this;
 
-    if (error) {
-      return html`<error-view error=${error} />`;
+    if (!client) {
+      return html``;
     }
 
-    if (isLoading || !client) {
-      return html`<loading-indicator></loading-indicator>`;
-    }
-
-    return html` <h2>${client.name}</h2>`;
+    return html`
+      <app-page-title>${client.name}</app-page-title>
+      <a href="/clients/${client._id}/edit">Edit</a>
+    `;
   }
 
   static styles = [defaultStyles];

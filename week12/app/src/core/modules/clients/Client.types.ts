@@ -7,3 +7,5 @@ export type Client = {
     email: string;
   };
 };
+
+export type ClientBody = Omit<Client, "_id">;

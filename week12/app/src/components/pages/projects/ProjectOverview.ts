@@ -1,19 +1,20 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { getClients } from "@core/modules/clients/Client.api";
-import { Client } from "@core/modules/clients/Client.types";
-import { defaultStyles } from "@styles/styles";
+import { getProjects } from "@core/modules/projects/Project.api";
+import { Project } from "@core/modules/projects/Project.types";
 
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
 import "@components/design/Button/Button";
+import "@components/design/Typography/PageTitle";
+import { defaultStyles } from "@styles/styles";
 
-@customElement("client-overview")
-class ClientOverview extends LitElement {
+@customElement("project-overview")
+class ProjectOverview extends LitElement {
   @property()
   isLoading: boolean = false;
   @property()
-  clients: Array<Client> | null = null;
+  projects: Array<Project> | null = null;
   @property()
   error: String | null = null;
 
@@ -26,9 +27,9 @@ class ClientOverview extends LitElement {
   fetchItems() {
     this.isLoading = true;
     // todo in api
-    getClients()
+    getProjects()
       .then(({ data }) => {
-        this.clients = data;
+        this.projects = data;
         this.isLoading = false;
       })
       .catch((error) => {
@@ -38,32 +39,30 @@ class ClientOverview extends LitElement {
   }
 
   render() {
-    const { isLoading, clients, error } = this;
+    const { isLoading, projects, error } = this;
 
     if (error) {
       return html`<error-view error=${error} />`;
     }
 
-    if (isLoading || !clients) {
+    if (isLoading || !projects) {
       return html`<loading-indicator></loading-indicator>`;
     }
 
-    return html`
-      <h2>Clients</h2>
+    return html` <app-page-title>Projects</app-page-title>
       <ul>
-        ${clients.map((c) => {
+        ${projects.map((c) => {
           return html`
             <li>
-              <a href="/clients/${c._id}">${c.name}</a>
+              <a href="/projects/${c._id}">${c.name}</a>
             </li>
           `;
         })}
       </ul>
-      <app-button href="/clients/create">Klant toevoegen</app-button>
-    `;
+      <app-button href="/projects/create">Project toevoegen</app-button>`;
   }
 
   static styles = [defaultStyles];
 }
 
-export default ClientOverview;
+export default ProjectOverview;

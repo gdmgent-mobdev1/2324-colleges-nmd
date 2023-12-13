@@ -16,10 +16,21 @@
 
   --font-weight-regular: 400;
   --font-weight-bold: 600;
+
+  --border-radius: 0.5rem;
 }
 
 body {
   background: var(--background);
   font-family: var(--font-sans);
   color: var(--text-color);
+}
+
+input {
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+a {
+  color: inherit;
 }

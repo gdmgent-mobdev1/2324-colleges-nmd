@@ -1,21 +1,26 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { getClients } from "@core/modules/clients/Client.api";
-import { Client } from "@core/modules/clients/Client.types";
+import { getProjectById } from "@core/modules/projects/Project.api";
+import { Project } from "@core/modules/projects/Project.types";
+import { router } from "@core/router";
 import { defaultStyles } from "@styles/styles";
+import { createContext, provide } from "@lit/context";
 
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
-import "@components/design/Button/Button";
 
-@customElement("client-overview")
-class ClientOverview extends LitElement {
+export const projectContext = createContext<Project | null>("project");
+
+@customElement("project-detail-container")
+class ProjectDetailContainer extends LitElement {
   @property()
   isLoading: boolean = false;
-  @property()
-  clients: Array<Client> | null = null;
+  @provide({ context: projectContext })
+  project: Project | null = null;
   @property()
   error: String | null = null;
+
+  @property({ type: Object }) location = router.location;
 
   // called when the element is first connected to the document’s DOM
   connectedCallback(): void {
@@ -24,11 +29,15 @@ class ClientOverview extends LitElement {
   }
 
   fetchItems() {
+    if (!this.location.params.id || typeof this.location.params.id !== "string") {
+      return;
+    }
+
     this.isLoading = true;
     // todo in api
-    getClients()
+    getProjectById(this.location.params.id)
       .then(({ data }) => {
-        this.clients = data;
+        this.project = data;
         this.isLoading = false;
       })
       .catch((error) => {
@@ -38,32 +47,20 @@ class ClientOverview extends LitElement {
   }
 
   render() {
-    const { isLoading, clients, error } = this;
+    const { isLoading, project, error } = this;
 
     if (error) {
       return html`<error-view error=${error} />`;
     }
 
-    if (isLoading || !clients) {
+    if (isLoading || !project) {
       return html`<loading-indicator></loading-indicator>`;
     }
 
-    return html`
-      <h2>Clients</h2>
-      <ul>
-        ${clients.map((c) => {
-          return html`
-            <li>
-              <a href="/clients/${c._id}">${c.name}</a>
-            </li>
-          `;
-        })}
-      </ul>
-      <app-button href="/clients/create">Klant toevoegen</app-button>
-    `;
+    return html`<slot></slot>`;
   }
 
   static styles = [defaultStyles];
 }
 
-export default ClientOverview;
+export default ProjectDetailContainer;

@@ -6,7 +6,7 @@ import "@components/design/ErrorView";
 import { login } from "@core/modules/auth/Auth.api";
 import * as Storage from "@core/storage";
 import { Router } from "@vaadin/router";
-import { defaultStyles } from "@styles/styles";
+import { buttonStyles, defaultStyles, inputStyles } from "@styles/styles";
 
 import "@components/design/ErrorView";
 
@@ -47,9 +47,30 @@ class Login extends LitElement {
           <app-logo></app-logo>
           ${error ? html`<error-view error=${error} />` : ""}
           <form @submit=${handleSubmit}>
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="Password" />
-            <button type="submit" ?disabled=${isLoading}>Login</button>
+            <div class="form-control">
+              <label class="form-control__label" for="email">Email</label>
+              <input
+                class="form-control__input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="john.doe@mail.com"
+                ?disabled=${isLoading}
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label class="form-control__label" for="password">Password</label>
+              <input
+                class="form-control__input"
+                type="password"
+                name="password"
+                id="password"
+                ?disabled=${isLoading}
+                required
+              />
+            </div>
+            <button class="btn-primary" type="submit" ?disabled=${isLoading}>Login</button>
           </form>
         </div>
       </div>
@@ -58,6 +79,8 @@ class Login extends LitElement {
 
   static styles = [
     defaultStyles,
+    inputStyles,
+    buttonStyles,
     css`
       .split {
         display: flex;
