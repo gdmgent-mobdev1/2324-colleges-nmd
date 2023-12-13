@@ -9,6 +9,7 @@ class Container extends LitElement {
   }
 
   static styles = [
+    defaultStyles,
     css`
       .container {
         display: block;
@@ -18,7 +19,6 @@ class Container extends LitElement {
         margin: 0 auto;
       }
     `,
-    defaultStyles,
   ];
 }
 
