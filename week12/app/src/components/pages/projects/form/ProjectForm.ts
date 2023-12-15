@@ -15,7 +15,7 @@ class ProjectForm extends LitElement {
   @property()
   isLoading: boolean = false;
   @property()
-  error: String | null = null;
+  error: string | null = null;
   @property()
   data: ProjectBody = {
     name: "",

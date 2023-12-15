@@ -15,7 +15,7 @@ class ClientOverview extends LitElement {
   @property()
   clients: Array<Client> | null = null;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   // called when the element is first connected to the document’s DOM
   connectedCallback(): void {

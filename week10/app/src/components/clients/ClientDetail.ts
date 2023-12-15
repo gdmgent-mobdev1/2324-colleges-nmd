@@ -14,7 +14,7 @@ class ClientDetail extends LitElement {
   @property()
   client: Client | null = null;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   @property({ type: Object }) location = router.location;
 

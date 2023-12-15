@@ -15,7 +15,7 @@ class Login extends LitElement {
   @property()
   isLoading: boolean = false;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   handleSubmit(event: Event) {
     event.preventDefault();

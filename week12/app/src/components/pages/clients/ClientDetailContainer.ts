@@ -18,7 +18,7 @@ class ClientDetailContainer extends LitElement {
   @provide({ context: clientContext })
   client: Client | null = null;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   @property({ type: Object }) location = router.location;
 

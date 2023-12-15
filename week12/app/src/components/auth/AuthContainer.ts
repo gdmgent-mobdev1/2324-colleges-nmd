@@ -25,7 +25,7 @@ class AuthContainer extends LitElement {
   @property()
   isLoading: boolean = false;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   connectedCallback(): void {
     super.connectedCallback();

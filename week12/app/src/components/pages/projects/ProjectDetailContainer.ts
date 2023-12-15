@@ -18,7 +18,7 @@ class ProjectDetailContainer extends LitElement {
   @provide({ context: projectContext })
   project: Project | null = null;
   @property()
-  error: String | null = null;
+  error: string | null = null;
 
   @property({ type: Object }) location = router.location;
 
