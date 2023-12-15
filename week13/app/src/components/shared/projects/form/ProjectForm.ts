@@ -1,6 +1,6 @@
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { buttonStyles, defaultStyles, inputStyles } from "@styles/styles";
+import { buttonStyles, defaultStyles, formStyles } from "@styles/styles";
 import { Router } from "@vaadin/router";
 import { Project, ProjectBody } from "@core/modules/projects/Project.types";
 import { AxiosResponse } from "axios";
@@ -27,6 +27,8 @@ class ProjectForm extends LitElement {
   submitLabel: String = "Toevoegen";
   @property()
   method: ((project: ProjectBody) => Promise<AxiosResponse<Project>>) | null = null;
+  @property()
+  onSuccess: (() => void) | null = null;
 
   // called when the element is first connected to the document’s DOM
   connectedCallback(): void {
@@ -61,6 +63,9 @@ class ProjectForm extends LitElement {
 
     this.method(project)
       .then(({ data }) => {
+        if (this.onSuccess) {
+          this.onSuccess();
+        }
         Router.go(`/projects/${data._id}`);
       })
       .catch((error) => {
@@ -108,7 +113,7 @@ class ProjectForm extends LitElement {
       </form>`;
   }
 
-  static styles = [defaultStyles, inputStyles, buttonStyles];
+  static styles = [defaultStyles, formStyles, buttonStyles];
 }
 
 export default ProjectForm;
