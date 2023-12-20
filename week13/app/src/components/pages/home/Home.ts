@@ -2,9 +2,8 @@ import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { defaultStyles } from "@styles/styles";
 import userContext from "@components/auth/userContext";
-import { User } from "@core/modules/auth/Auth.types";
 import { consume } from "@lit/context";
-import { DashboardData } from "@core/modules/user/User.types";
+import { DashboardData, User } from "@core/modules/user/User.types";
 import { getDashboardData } from "@core/modules/user/User.api";
 import { formatDuration } from "@core/modules/logs/Log.utils";
 

@@ -14,6 +14,7 @@ class Navigation extends LitElement {
   @consume({ context: userContext, subscribe: true })
   @property({ attribute: false })
   public user?: User | null;
+
   @property({ type: Object }) location = router.location;
 
   connectedCallback(): void {

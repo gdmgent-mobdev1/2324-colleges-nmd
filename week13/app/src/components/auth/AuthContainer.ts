@@ -1,4 +1,3 @@
-import { User } from "@core/modules/auth/Auth.types";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import * as Storage from "../../core/storage";
@@ -12,6 +11,7 @@ import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
 import { provide } from "@lit/context";
 import userContext from "./userContext";
+import { User } from "@core/modules/user/User.types";
 
 export const logout = () => {
   Storage.saveAuthToken(null);

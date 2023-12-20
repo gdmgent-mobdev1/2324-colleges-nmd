@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { defaultStyles } from "@styles/styles";
 import { consume } from "@lit/context";
 import { ClientContext, clientContext } from "./ClientDetailContainer";
-import { Client, ClientBody } from "@core/modules/clients/Client.types";
+import { ClientBody } from "@core/modules/clients/Client.types";
 import { updateClient } from "@core/modules/clients/Client.api";
 
 import "@components/shared/clients/form/ClientForm";

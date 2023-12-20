@@ -2,7 +2,6 @@ import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { defaultStyles } from "@styles/styles";
 import { consume } from "@lit/context";
-import { Client } from "@core/modules/clients/Client.types";
 import { ClientContext, clientContext } from "./ClientDetailContainer";
 
 import "@components/design/Header/PageHeader";

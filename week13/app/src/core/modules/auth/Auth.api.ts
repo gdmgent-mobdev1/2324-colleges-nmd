@@ -1,5 +1,5 @@
 import { API } from "@core/network/api";
-import { Auth, User } from "./Auth.types";
+import { Auth } from "./Auth.types";
 
 type LoginBody = {
   email: string;
@@ -8,8 +8,4 @@ type LoginBody = {
 
 export const login = (body: LoginBody) => {
   return API.post<Auth>("/login", body);
-};
-
-export const getCurrentUser = () => {
-  return API.get<User>("/users/current");
 };
