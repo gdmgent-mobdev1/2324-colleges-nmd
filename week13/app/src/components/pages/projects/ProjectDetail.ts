@@ -8,6 +8,7 @@ import "@components/design/Typography/PageTitle";
 import "@components/design/Button/Button";
 import "@components/design/Header/PageHeader";
 import "@components/design/Typography/PageTitle";
+import "@components/shared/logs/overview/LogOverview";
 
 @customElement("project-detail")
 class ProjectDetail extends LitElement {
@@ -29,6 +30,7 @@ class ProjectDetail extends LitElement {
         <app-page-title>${project.name}</app-page-title>
         <app-button href="/projects/${project._id}/edit" color="secondary">Aanpassen</app-button>
       </app-page-header>
+      <log-overview-view .projectId=${project._id}></log-overview-view>
     `;
   }
 

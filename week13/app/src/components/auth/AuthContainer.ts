@@ -2,7 +2,7 @@ import { User } from "@core/modules/auth/Auth.types";
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import * as Storage from "../../core/storage";
-import { getCurrentUser } from "@core/modules/auth/Auth.api";
+import { getCurrentUser } from "@core/modules/user/User.api";
 import { API } from "@core/network/api";
 import { AxiosError, AxiosResponse } from "axios";
 import { Router } from "@vaadin/router";
