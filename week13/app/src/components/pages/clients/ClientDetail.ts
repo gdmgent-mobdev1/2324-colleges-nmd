@@ -3,7 +3,7 @@ import { customElement, property } from "lit/decorators.js";
 import { defaultStyles } from "@styles/styles";
 import { consume } from "@lit/context";
 import { Client } from "@core/modules/clients/Client.types";
-import { clientContext } from "./ClientDetailContainer";
+import { ClientContext, clientContext } from "./ClientDetailContainer";
 
 import "@components/design/Header/PageHeader";
 import "@components/design/Typography/PageTitle";
@@ -13,10 +13,16 @@ import "@components/design/Button/Button";
 class ClientDetail extends LitElement {
   @consume({ context: clientContext, subscribe: true })
   @property({ attribute: false })
-  public client?: Client | null;
+  public clientContextValue?: ClientContext | null;
 
   render() {
-    const { client } = this;
+    const { clientContextValue } = this;
+
+    if (!clientContextValue || !clientContextValue.client) {
+      return html``;
+    }
+
+    const { client } = clientContextValue;
 
     if (!client) {
       return html``;

@@ -9,14 +9,19 @@ import { getClientById } from "@core/modules/clients/Client.api";
 import "@components/design/LoadingIndicator";
 import "@components/design/ErrorView";
 
-export const clientContext = createContext<Client | null>("client");
+export type ClientContext = {
+  client: Client | null;
+  refresh: () => void;
+};
+
+export const clientContext = createContext<ClientContext | null>("client");
 
 @customElement("client-detail-container")
 class ClientDetailContainer extends LitElement {
   @property()
   isLoading: boolean = false;
   @provide({ context: clientContext })
-  client: Client | null = null;
+  clientContext: ClientContext | null = null;
   @property()
   error: string | null = null;
 
@@ -25,6 +30,10 @@ class ClientDetailContainer extends LitElement {
   // called when the element is first connected to the document’s DOM
   connectedCallback(): void {
     super.connectedCallback();
+    this.clientContext = {
+      client: null,
+      refresh: this.fetchItem,
+    };
     this.fetchItem();
   }
 
@@ -35,10 +44,12 @@ class ClientDetailContainer extends LitElement {
     }
 
     this.isLoading = true;
-    // todo in api
     getClientById(this.location.params.id)
       .then(({ data }) => {
-        this.client = data;
+        this.clientContext = {
+          client: data,
+          refresh: this.fetchItem,
+        };
         this.isLoading = false;
       })
       .catch((error) => {
@@ -48,7 +59,13 @@ class ClientDetailContainer extends LitElement {
   };
 
   render() {
-    const { isLoading, client, error } = this;
+    const { isLoading, clientContext, error } = this;
+
+    if (!clientContext) {
+      return html``;
+    }
+
+    const { client } = clientContext;
 
     if (error) {
       return html`<error-view error=${error} />`;

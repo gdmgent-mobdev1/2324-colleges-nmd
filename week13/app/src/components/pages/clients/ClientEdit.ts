@@ -2,7 +2,7 @@ import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { defaultStyles } from "@styles/styles";
 import { consume } from "@lit/context";
-import { clientContext } from "./ClientDetailContainer";
+import { ClientContext, clientContext } from "./ClientDetailContainer";
 import { Client, ClientBody } from "@core/modules/clients/Client.types";
 import { updateClient } from "@core/modules/clients/Client.api";
 
@@ -14,10 +14,23 @@ import "@components/design/Header/PageHeader";
 class ClientEdit extends LitElement {
   @consume({ context: clientContext, subscribe: true })
   @property({ attribute: false })
-  public client?: Client | null;
+  public clientContextValue?: ClientContext | null;
+
+  handleSuccess = () => {
+    const { clientContextValue } = this;
+    if (clientContextValue) {
+      clientContextValue.refresh();
+    }
+  };
 
   render() {
-    const { client } = this;
+    const { clientContextValue } = this;
+
+    if (!clientContextValue || !clientContextValue.client) {
+      return html``;
+    }
+
+    const { client } = clientContextValue;
 
     if (!client) {
       return html``;
@@ -28,6 +41,7 @@ class ClientEdit extends LitElement {
       </app-page-header>
       <client-form
         submitLabel="Aanpassen"
+        .onSuccess=${this.handleSuccess}
         .data=${client}
         .method=${(body: ClientBody) => updateClient(client._id, body)}
       ></client-form>`;

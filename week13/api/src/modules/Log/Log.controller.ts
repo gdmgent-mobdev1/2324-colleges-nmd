@@ -11,9 +11,9 @@ const getLogs = async (req: Request, res: Response, next: NextFunction) => {
 
     const log = await LogModel.find({
       ownerId: user._id,
-      ...(date ? { date } : {}),
-      ...(clientId ? { clientId } : {}),
-      ...(projectId ? { projectId } : {}),
+      ...(date ? { date: date } : {}),
+      ...(clientId ? { clientId: clientId } : {}),
+      ...(projectId ? { projectId: projectId } : {}),
     })
       .sort({ date: 1 })
       .lean()
